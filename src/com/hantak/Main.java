@@ -10,17 +10,28 @@ public class Main {
         final int NUM_TO_PERCENT = 100;
 
         System.out.println("Welcome to Mortgage Calculator!");
-        System.out.print("Enter your principal amount: ");
 
-        int principal = scanner.nextInt();
+        int principal = 0;
+        while(principal <= 1_000 || principal >= 1_000_000) {
+            System.out.println("Mortgage principal must be between $1,000 and $1,000,000");
+            System.out.print("Enter your principal amount: ");
+            principal = scanner.nextInt();
+        }
 
-        System.out.print("Enter your annual interest rate: ");
+        double annualInterest = 0;
+        while (annualInterest <=0 || annualInterest > 30) {
+            System.out.println("Annual interest rate must be greater than 0% and less than or equal to 30%");
+            System.out.print("Enter your annual interest rate: ");
+            annualInterest = scanner.nextDouble();
+        }
+        double monthlyInterest = annualInterest / MONTHS_IN_YEAR / NUM_TO_PERCENT;
 
-        double monthlyInterest = scanner.nextDouble() / NUM_TO_PERCENT / MONTHS_IN_YEAR;
-
-        System.out.print("Enter your mortgage period(in years): ");
-
-        int mortgageMonths = scanner.nextByte() * MONTHS_IN_YEAR;
+        int mortgageMonths = 0;
+        while (mortgageMonths < 12 || mortgageMonths > 360) {
+            System.out.println("Mortgage period must be between 1 year to 30 years");
+            System.out.print("Enter your mortgage period(in years): ");
+            mortgageMonths = scanner.nextByte() * MONTHS_IN_YEAR;
+        }
 
         double numerator = monthlyInterest * Math.pow((1+monthlyInterest), mortgageMonths);
         double denominator = Math.pow((1+monthlyInterest), mortgageMonths) - 1;
