@@ -17,12 +17,7 @@ public class Main {
 
         int mortgageMonths = inputMortgagePeriod(scanner) * MONTHS_IN_YEAR;
 
-        double numerator = monthlyInterest * Math.pow((1+monthlyInterest), mortgageMonths);
-        double denominator = Math.pow((1+monthlyInterest), mortgageMonths) - 1;
-
-        double monthlyValue = principal * numerator / denominator;
-
-        String monthlyPayment = NumberFormat.getCurrencyInstance().format(monthlyValue);
+        String monthlyPayment = calculateMonthlyPayment(principal, monthlyInterest, mortgageMonths);
 
         System.out.println("Monthly Payment: " + monthlyPayment);
     }
@@ -55,5 +50,15 @@ public class Main {
             mortgageMonths = scanner.nextByte();
         }
         return mortgageMonths;
+    }
+
+    public static String calculateMonthlyPayment(int principal, double monthlyInterest, int mortgageMonths) {
+        double numerator = monthlyInterest * Math.pow((1+monthlyInterest), mortgageMonths);
+        double denominator = Math.pow((1+monthlyInterest), mortgageMonths) - 1;
+
+        double monthlyValue = principal * numerator / denominator;
+
+        String monthlyPayment = NumberFormat.getCurrencyInstance().format(monthlyValue);
+        return monthlyPayment;
     }
 }
